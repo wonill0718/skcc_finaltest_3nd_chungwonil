@@ -1,6 +1,7 @@
-part2
-1.
-
+# 1.
+```
+$vi solution.sql
+------------------------------------------------------
 use problem1;
 
 select a.id, a.type, a.status, a.amount, 
@@ -12,16 +13,14 @@ where status = "Active"
 group by type) b
 on (a.type = b.type)
 where status = "Active";
-
-
-
+------------------------------------------------------
 
 hive -f solution.sql
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/1.PNG"></img>
 
-
-
-2.
-
+# 2.
+```
 create database problem2;
 
 use problem2;
@@ -40,10 +39,11 @@ CREATE EXTERNAL TABLE employee(
 row format delimited 
 fields terminated by ','
 location 'hdfs://localhost:8020/user/training/problem2/data/employee';
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/2-1.create_table.PNG"></img>
 
-
-3.
-
+# 3.
+```
 CREATE EXTERNAL TABLE solution(
 custid              	string,
 fname               	string,              	                    
@@ -61,14 +61,16 @@ from account a
     ,customer c
 where a.amount < 0.0 
 and a.custid = c.id;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/3-1%20create_table.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/3-2%20select_insert.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/3-3%20select_solution.PNG"></img>
 
-
-4.
-
+# 4.
+```
 create problem4;
 
 use problem4;
-
 
 CREATE EXTERNAL TABLE employee1 (
 id string,
@@ -83,10 +85,6 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\t;'
 LOCATION 'hdfs://localhost:8020/user/training/problem4/data/employee1';
 
-select * from employee1 limit 10;
-
-
-
 CREATE EXTERNAL TABLE employee2 (
 id string,
 num string,
@@ -100,8 +98,6 @@ zip string
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 LOCATION 'hdfs://localhost:8020/user/training/problem4/data/employee2';
-
-
 
 CREATE EXTERNAL TABLE solution (
 id string,
@@ -126,10 +122,12 @@ from employee2 b where b.state = 'CA'
 ) ab ;
 
 select * from solution limit 10;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/4.%20create_table_and_select_insert.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/4.%20result.PNG"></img>
 
-
-5.
-
+# 5.
+```
 CREATE EXTERNAL TABLE solution (
 fname string,
 lname string,
@@ -154,10 +152,12 @@ and state = 'CA'
 ;
 
 select * from solution limit 10;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/5.%20create_table_and_select_insert.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/5.%20result.PNG"></img>
 
-
-6.
-
+# 6.
+```
 CREATE EXTERNAL TABLE solution (
 	  id 		int, 	  
 	  fname string, 
@@ -183,20 +183,22 @@ select id,
 from employee;
 
 select * from solution limit 10;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/6.%20create_table_and_select_insert.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/6.%20result.PNG"></img>
 
-
-7.
-
+# 7.
+```
 select concat(fname," ", lname) as name 
 from employee 
 where city = 'Seattle' 
 order by name asc;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/7.%20result.PNG"></img>
 
-
-8.
-
-8-1. data export
-
+# 8.
+## 1. data export
+```
 [training@localhost problem1]$ sqoop export --connect jdbc:mysql://localhost/problem8 --username cloudera --password cloudera --table solution --export-dir hdfs://localhost:8020/user/training/problem8/data/customer --input-fields-terminated-by '\t'
 19/07/19 00:46:29 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.8.0
 19/07/19 00:46:29 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
@@ -410,9 +412,12 @@ java.lang.InterruptedException
 		Bytes Written=0
 19/07/19 00:47:04 INFO mapreduce.ExportJobBase: Transferred 18.4443 KB in 30.9412 seconds (610.4152 bytes/sec)
 19/07/19 00:47:04 INFO mapreduce.ExportJobBase: Exported 100 records.
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/8-1.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/8-1-2.PNG"></img>
 
-
-8-2. show mysql table data
+## 2. table data
+```
 [training@localhost problem1]$ mysql -u training -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -458,15 +463,11 @@ mysql> select * from solution limit 10;
 10 rows in set (0.00 sec)
 
 mysql> 
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/8-2.PNG"></img>
 
-
-
-
-
-
-
-9.
-
+# 9.
+```
 CREATE EXTERNAL TABLE solution (
 	id 		    string,
     fname 		string,
@@ -492,11 +493,12 @@ select concat("A",id) as id
 from customer;
 
 select * from solution limit 10;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/9.%20create_table_and_select_insert.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/9.%20result.PNG"></img>
 
-
-
-10.
-
+# 10.
+```
 CREATE EXTERNAL TABLE solution(
 id int, 
 fname string, 
@@ -524,3 +526,6 @@ from customer c
 where c.id = b.id;
 
 select * from solution limit 10;
+```
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/10.%20create_table_and_select_insert.PNG"></img>
+<img src="https://github.com/wonill0718/skcc_finaltest_3nd_chungwonil/blob/master/p2_png/10.%20result.PNG"></img>
