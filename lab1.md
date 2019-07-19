@@ -279,12 +279,8 @@ select * from results limit 10;
 ```
 sqoop export --connect jdbc:mysql://cm:3306/test \
 --username training \
--P \
---split-by id \
---columns id,fname,lname,num_posts \
+--password training \
 --table results \
---fields-terminated-by "\t" \
---hive-import \
---create-hive-table \
---hive-table test.posts
+--export-dir hdfs://cm:8020/user/hive/warehouse/results \
+--input-fields-terminated-by '\t'
 ```
